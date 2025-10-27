@@ -1,0 +1,8 @@
+pandas as pd
+plotly
+streamlit
+geocoder
+geopy
+datetime
+os
+requests
