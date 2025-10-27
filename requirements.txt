@@ -1,8 +1,9 @@
-pandas as pd
+pandas
 plotly
 streamlit
 geocoder
 geopy
 datetime
 os
+
 requests
