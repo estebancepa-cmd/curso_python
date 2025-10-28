@@ -260,29 +260,29 @@ with tab1:
     # Limpiar y calcular distancia 
     df_temp = df
 
-    # st.spinner("Calculando distancias..."):
-    if df_temp is not None:
-        df_temp['distancia_km'] = df_temp.apply(calcular_distancia, axis=1)
-        df_filtrado = df_temp[df_temp['distancia_km'] <= dist_max].sort_values('distancia_km')
-      
-        # Mostrar mapa de gasolineras cercanas
-        mostrar_gasoli_cercanas(df_filtrado)
-
-        # Tabla
-        #st.dataframe(df_filtrado)
-        st.subheader("🚗 Cómo llegar")
-        for _, row in df_filtrado.head(5).iterrows():
-            enlace = f"https://www.google.com/maps/dir/{user_location[0]},{user_location[1]}/{row['lat']},{row['lon']}"
-            st.markdown(f"**{row['Rótulo']} - {row['Municipio']}** → [📍 Ver ruta en Google Maps]({enlace})")
-            df_filtrado[["Rótulo", "Municipio", "Dirección", tipo_combustible, "distancia_km"]].reset_index(drop=True).head(30)
-
-            # Guardar evolución diaria
-            guardar_evolucion_diaria(df_filtrado, hist_file)
-
-        # Enlaces a Google Maps
-        enlaces_google_maps(df_filtrado)
-    else:
-        st.error("No se ha encontrado datos")
+    st.spinner("Calculando distancias..."):
+        if df_temp is not None:
+            df_temp['distancia_km'] = df_temp.apply(calcular_distancia, axis=1)
+            df_filtrado = df_temp[df_temp['distancia_km'] <= dist_max].sort_values('distancia_km')
+          
+            # Mostrar mapa de gasolineras cercanas
+            mostrar_gasoli_cercanas(df_filtrado)
+    
+            # Tabla
+            #st.dataframe(df_filtrado)
+            st.subheader("🚗 Cómo llegar")
+            for _, row in df_filtrado.head(5).iterrows():
+                enlace = f"https://www.google.com/maps/dir/{user_location[0]},{user_location[1]}/{row['lat']},{row['lon']}"
+                st.markdown(f"**{row['Rótulo']} - {row['Municipio']}** → [📍 Ver ruta en Google Maps]({enlace})")
+                df_filtrado[["Rótulo", "Municipio", "Dirección", tipo_combustible, "distancia_km"]].reset_index(drop=True).head(30)
+    
+                # Guardar evolución diaria
+                guardar_evolucion_diaria(df_filtrado, hist_file)
+    
+            # Enlaces a Google Maps
+            enlaces_google_maps(df_filtrado)
+        else:
+            st.error("No se ha encontrado datos")
 # ----------------------------------------
 # PESTAÑA 2: EVOLUCIÓN INDIVIDUAL
 # ----------------------------------------
@@ -300,4 +300,5 @@ with tab3:
 
     if existe_historico(hist_file):
         comparativa_evolucion_precios(hist_file)
+
 
