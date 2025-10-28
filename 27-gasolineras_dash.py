@@ -243,7 +243,10 @@ with tab1:
     # Detectar ubicación automática
     g = geocoder.ip('me')
     if g.latlng:
+        lat  = 41.387027
+        lon  = 2.170024
         user_location = g.latlng
+        user_location = (lat, lon) # provoco que coja Barcelona
         st.success(f"Ubicación detectada: {user_location}")
     else:
         st.warning("No se pudo detectar automáticamente. Ingresa tu ubicación manualmente:")
@@ -297,3 +300,4 @@ with tab3:
 
     if existe_historico(hist_file):
         comparativa_evolucion_precios(hist_file)
+
